@@ -256,42 +256,42 @@ pageContainer.innerHTML=`
     <div class="menu-grid">
 
         <button class="btn menu-btn"
-            onclick="showToast('新增每日帳務 開發中')">
+            onclick="changePage('daily')">
 
             新增每日帳務
 
         </button>
 
         <button class="btn menu-btn"
-            onclick="showToast('查詢帳務 開發中')">
+            onclick="changePage('search')">
 
             查詢帳務
 
         </button>
 
         <button class="btn menu-btn"
-            onclick="showToast('營業報表 開發中')">
+            onclick="changePage('report')">
 
             營業報表
 
         </button>
 
         <button class="btn menu-btn"
-            onclick="showToast('月結 開發中')">
+            onclick="changePage('month')">
 
             月結
 
         </button>
 
         <button class="btn menu-btn"
-            onclick="showToast('查詢月結 開發中')">
+            onclick="changePage('monthSearch')">
 
             查詢月結
 
         </button>
 
         <button class="btn menu-btn"
-            onclick="showToast('常用管理 開發中')">
+            onclick="changePage('setting')">
 
             常用管理
 
@@ -304,8 +304,184 @@ pageContainer.innerHTML=`
 `;
 
 }
+function backHomeButton(){
 
+    return `
 
+<button
+class="btn"
+
+onclick="changePage('home')">
+
+返回首頁
+
+</button>
+
+`;
+
+}
+function renderDaily(){
+
+pageContainer.innerHTML=`
+
+<div class="card">
+
+<div class="card-title">
+
+新增每日帳務
+
+</div>
+
+<p>
+
+每日帳務功能開發中
+
+</p>
+
+<br>
+
+${backHomeButton()}
+
+</div>
+
+`;
+
+}
+function renderSearch(){
+
+pageContainer.innerHTML=`
+
+<div class="card">
+
+<div class="card-title">
+
+查詢帳務
+
+</div>
+
+<p>
+
+查詢帳務功能開發中
+
+</p>
+
+<br>
+
+${backHomeButton()}
+
+</div>
+
+`;
+
+}
+function renderReport(){
+
+pageContainer.innerHTML=`
+
+<div class="card">
+
+<div class="card-title">
+
+營業報表
+
+</div>
+
+<p>
+
+營業報表功能開發中
+
+</p>
+
+<br>
+
+${backHomeButton()}
+
+</div>
+
+`;
+
+}
+function renderMonth(){
+
+pageContainer.innerHTML=`
+
+<div class="card">
+
+<div class="card-title">
+
+月結
+
+</div>
+
+<p>
+
+月結功能開發中
+
+</p>
+
+<br>
+
+${backHomeButton()}
+
+</div>
+
+`;
+
+}
+function renderMonthSearch(){
+
+pageContainer.innerHTML=`
+
+<div class="card">
+
+<div class="card-title">
+
+查詢月結
+
+</div>
+
+<p>
+
+查詢月結功能開發中
+
+</p>
+
+<br>
+
+${backHomeButton()}
+
+</div>
+
+`;
+
+}
+function renderSetting(){
+
+pageContainer.innerHTML=`
+
+<div class="card">
+
+<div class="card-title">
+
+常用管理
+
+</div>
+
+<p>
+
+系統設定功能開發中
+
+</p>
+
+<br>
+
+${backHomeButton()}
+
+</div>
+
+`;
+
+}    
 /*
 ==========================================
 API
