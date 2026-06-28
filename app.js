@@ -568,6 +568,41 @@ pageContainer.innerHTML=`
     </div>
 
 </div>
+<div class="card">
+
+    <div class="card-title">
+        商品數量
+    </div>
+
+    <div class="grid-2">
+
+        <div>
+
+            <label>飲料杯數</label>
+
+            <input
+                type="number"
+                id="drinkQty"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>雞蛋糕份數</label>
+
+            <input
+                type="number"
+                id="eggQty"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+    </div>
+
+</div>
     <div class="card">
 
         <div class="card-title">
@@ -839,6 +874,12 @@ function updateDailyState(){
 
     d.panda.egg.count =
     Number(document.getElementById("pandaEggCount")?.value || 0);
+    
+    d.product.drinkQty =
+    Number(document.getElementById("drinkQty")?.value || 0);
+
+    d.product.eggQty =
+    Number(document.getElementById("eggQty")?.value || 0);
 }
 /*
 ==========================================
