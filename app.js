@@ -7,19 +7,80 @@ Core
 
 const App = {
 
-    version: "1.0",
+    version: "1.0.0",
 
     apiUrl: "",
 
     currentPage: "home",
 
-    setting: {},
+    state:{
 
-    dailyData: {},
+        settings:{
+            closeTime:"03:00"
+        },
 
-    reportData: {},
+        daily:{
 
-    monthData: {}
+            store:{
+                cash:{
+                    amount:0,
+                    count:0
+                },
+
+                linePay:{
+                    amount:0,
+                    count:0
+                }
+            },
+
+            uber:{
+                drink:{
+                    amount:0,
+                    count:0
+                },
+
+                egg:{
+                    amount:0,
+                    count:0
+                }
+            },
+
+            panda:{
+                drink:{
+                    amount:0,
+                    count:0
+                },
+
+                egg:{
+                    amount:0,
+                    count:0
+                }
+            },
+
+            product:{
+                drinkQty:0,
+                eggQty:0
+            },
+
+            expenses:[],
+
+            incomes:[],
+
+            summary:{
+                sales:0,
+                orders:0,
+                expense:0,
+                income:0,
+                net:0
+            }
+
+        },
+
+        report:{},
+
+        month:{}
+
+    }
 
 };
 
@@ -326,25 +387,220 @@ pageContainer.innerHTML=`
 
 <div class="card">
 
-<div class="card-title">
+    <div class="card-title">
+        新增每日帳務
+    </div>
 
-新增每日帳務
+    <div class="card">
+
+        <div class="card-title">
+            店面
+        </div>
+
+        <div class="grid-2">
+
+            <div>
+
+                <label>現金金額</label>
+
+                <input
+                    type="number"
+                    id="cashAmount"
+                    value="0"
+                    oninput="calculateDaily()">
+
+            </div>
+
+            <div>
+
+                <label>現金單數</label>
+
+                <input
+                    type="number"
+                    id="cashCount"
+                    value="0"
+                    oninput="calculateDaily()">
+
+            </div>
+
+            <div>
+
+                <label>Line Pay 金額</label>
+
+                <input
+                    type="number"
+                    id="lineAmount"
+                    value="0"
+                    oninput="calculateDaily()">
+
+            </div>
+
+            <div>
+
+                <label>Line Pay 單數</label>
+
+                <input
+                    type="number"
+                    id="lineCount"
+                    value="0"
+                    oninput="calculateDaily()">
+
+            </div>
+
+        </div>
+
+    </div>
+<div class="card">
+
+    <div class="card-title">
+        Uber Eats
+    </div>
+
+    <div class="grid-2">
+
+        <div>
+
+            <label>沉飲金額</label>
+
+            <input
+                type="number"
+                id="uberDrinkAmount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>沉飲單數</label>
+
+            <input
+                type="number"
+                id="uberDrinkCount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>雞蛋糕金額</label>
+
+            <input
+                type="number"
+                id="uberEggAmount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>雞蛋糕單數</label>
+
+            <input
+                type="number"
+                id="uberEggCount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+    </div>
 
 </div>
+<div class="card">
 
-<p>
+    <div class="card-title">
+        Foodpanda
+    </div>
 
-每日帳務功能開發中
+    <div class="grid-2">
 
-</p>
+        <div>
 
-<br>
+            <label>沉飲金額</label>
 
-${backHomeButton()}
+            <input
+                type="number"
+                id="pandaDrinkAmount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>沉飲單數</label>
+
+            <input
+                type="number"
+                id="pandaDrinkCount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>雞蛋糕金額</label>
+
+            <input
+                type="number"
+                id="pandaEggAmount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+        <div>
+
+            <label>雞蛋糕單數</label>
+
+            <input
+                type="number"
+                id="pandaEggCount"
+                value="0"
+                oninput="calculateDaily()">
+
+        </div>
+
+    </div>
+
+</div>
+    <div class="card">
+
+        <div class="card-title">
+
+            今日統計
+
+        </div>
+
+        <p>
+
+            總營業額：
+            <b id="totalAmount">0</b>
+
+        </p>
+
+        <br>
+
+        <p>
+
+            總單數：
+            <b id="totalCount">0</b>
+
+        </p>
+
+    </div>
+
+    ${backHomeButton()}
 
 </div>
 
 `;
+
+calculateDaily();
 
 }
 function renderSearch(){
@@ -533,13 +789,93 @@ async function api(action,data={}){
 
 }
 
+function getDaily(){
 
+    return App.state.daily;
+
+}
+
+function setDaily(data){
+
+    App.state.daily=data;
+
+}
+function updateDailyState(){
+
+    const d = App.state.daily;
+
+    d.store.cash.amount =
+        Number(document.getElementById("cashAmount")?.value || 0);
+
+    d.store.cash.count =
+        Number(document.getElementById("cashCount")?.value || 0);
+
+    d.store.linePay.amount =
+        Number(document.getElementById("lineAmount")?.value || 0);
+
+    d.store.linePay.count =
+        Number(document.getElementById("lineCount")?.value || 0);
+    
+    d.uber.drink.amount =
+        Number(document.getElementById("uberDrinkAmount")?.value || 0);
+
+    d.uber.drink.count =
+        Number(document.getElementById("uberDrinkCount")?.value || 0);
+
+    d.uber.egg.amount =
+        Number(document.getElementById("uberEggAmount")?.value || 0);
+
+    d.uber.egg.count =
+        Number(document.getElementById("uberEggCount")?.value || 0);
+    
+    d.panda.drink.amount =
+    Number(document.getElementById("pandaDrinkAmount")?.value || 0);
+
+    d.panda.drink.count =
+    Number(document.getElementById("pandaDrinkCount")?.value || 0);
+
+    d.panda.egg.amount =
+    Number(document.getElementById("pandaEggAmount")?.value || 0);
+
+    d.panda.egg.count =
+    Number(document.getElementById("pandaEggCount")?.value || 0);
+}
 /*
 ==========================================
 Utils
 ==========================================
 */
+function calculateDaily(){
 
+    updateDailyState();
+
+    const d = App.state.daily;
+
+    const totalAmount =
+    d.store.cash.amount +
+    d.store.linePay.amount +
+    d.uber.drink.amount +
+    d.uber.egg.amount +
+    d.panda.drink.amount +
+    d.panda.egg.amount;
+
+   const totalCount =
+    d.store.cash.count +
+    d.store.linePay.count +
+    d.uber.drink.count +
+    d.uber.egg.count +
+    d.panda.drink.count +
+    d.panda.egg.count;
+    d.summary.sales = totalAmount;
+    d.summary.orders = totalCount;
+
+    document.getElementById("totalAmount").innerHTML =
+        money(totalAmount);
+
+    document.getElementById("totalCount").innerHTML =
+        money(totalCount);
+
+}
 function money(number){
 
     return Number(number||0)
