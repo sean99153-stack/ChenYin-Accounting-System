@@ -1,1 +1,485 @@
+/* ===========================
+   沉飲店內帳務系統 V1.0
+   Global Style
+=========================== */
 
+:root{
+
+    --primary:#F57C00;
+    --primary-dark:#E65100;
+    --primary-light:#FFF3E0;
+
+    --success:#4CAF50;
+    --warning:#FF9800;
+    --danger:#F44336;
+    --info:#2196F3;
+
+    --bg:#F5F5F5;
+    --card:#FFFFFF;
+    --border:#E0E0E0;
+
+    --text:#333333;
+    --text-light:#777777;
+
+    --radius:14px;
+
+    --shadow:
+        0 3px 12px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   Reset
+=========================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:
+        "Microsoft JhengHei",
+        "Noto Sans TC",
+        sans-serif;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+}
+
+/* ===========================
+   Header
+=========================== */
+
+.topbar{
+
+    background:var(--primary);
+
+    color:#fff;
+
+    padding:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.topbar h1{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.version{
+
+    font-size:13px;
+
+    opacity:.8;
+
+}
+
+/* ===========================
+   Main
+=========================== */
+
+#pageContainer{
+
+    padding:18px;
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.card{
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+}
+
+.card-title{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-bottom:14px;
+
+}
+
+/* ===========================
+   Button
+=========================== */
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:10px;
+
+    transition:.25s;
+
+}
+
+.btn{
+
+    width:100%;
+
+    padding:14px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    color:#fff;
+
+    background:var(--primary);
+
+}
+
+.btn:hover{
+
+    background:var(--primary-dark);
+
+}
+
+.btn-success{
+
+    background:var(--success);
+
+}
+
+.btn-warning{
+
+    background:var(--warning);
+
+}
+
+.btn-danger{
+
+    background:var(--danger);
+
+}
+
+.btn-info{
+
+    background:var(--info);
+
+}
+
+/* ===========================
+   Input
+=========================== */
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:6px;
+
+    margin-bottom:14px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    background:#fff;
+
+}
+
+label{
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-top:8px;
+
+}
+
+/* ===========================
+   Grid
+=========================== */
+
+.grid-2{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+}
+
+.grid-3{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+}
+
+/* ===========================
+   Loading
+=========================== */
+
+.loading{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    top:0;
+
+    bottom:0;
+
+    background:rgba(255,255,255,.7);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+.loading-box{
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+.spinner{
+
+    width:45px;
+
+    height:45px;
+
+    border:5px solid #ddd;
+
+    border-top:5px solid var(--primary);
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+
+    margin:auto;
+
+}
+
+.loading-text{
+
+    margin-top:12px;
+
+    font-weight:bold;
+
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ===========================
+   Toast
+=========================== */
+
+#toast{
+
+    position:fixed;
+
+    bottom:30px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:#333;
+
+    color:#fff;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    opacity:0;
+
+    transition:.3s;
+
+    z-index:99999;
+
+}
+
+#toast.show{
+
+    opacity:1;
+
+}
+
+/* ===========================
+   Dialog
+=========================== */
+
+.dialog-mask{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99998;
+
+}
+
+.dialog{
+
+    width:92%;
+
+    max-width:420px;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:20px;
+
+}
+
+.dialog-title{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+
+}
+
+.dialog-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.dialog-buttons button{
+
+    flex:1;
+
+    padding:12px;
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+    .grid-2{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .grid-3{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .topbar h1{
+
+        font-size:20px;
+
+    }
+
+}
+
+/* ===========================
+   Desktop
+=========================== */
+
+@media(min-width:769px){
+
+    .btn{
+
+        width:auto;
+
+        min-width:180px;
+
+    }
+
+}
