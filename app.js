@@ -62,9 +62,21 @@ const App = {
                 eggQty:0
             },
 
-            expenses:[],
+            expenses:[
+    {
+        item:"",
+        qty:1,
+        amount:0
+    }
+],
 
-            incomes:[],
+            incomes:[
+    {
+        item:"",
+        qty:1,
+        amount:0
+    }
+],
 
             summary:{
                 sales:0,
@@ -603,6 +615,25 @@ pageContainer.innerHTML=`
     </div>
 
 </div>
+<div class="card">
+
+    <div class="card-title">
+        支出
+    </div>
+
+    <div id="expenseList"></div>
+
+    <br>
+
+    <button
+        class="btn"
+        onclick="addExpense()">
+
+        ＋ 新增支出
+
+    </button>
+
+</div>
     <div class="card">
 
         <div class="card-title">
@@ -643,6 +674,15 @@ pageContainer.innerHTML=`
     <b id="eggQtyTotal">0</b>
 
 </p>
+
+<br>
+
+<p>
+
+    支出合計：
+    <b id="expenseTotal">0</b>
+
+</p>
     </div>
 
     ${backHomeButton()}
@@ -652,6 +692,8 @@ pageContainer.innerHTML=`
 `;
 
 calculateDaily();
+
+renderExpenseList();
 
 }
 function renderSearch(){
@@ -851,6 +893,81 @@ function setDaily(data){
     App.state.daily=data;
 
 }
+function addExpense(){
+
+    App.state.daily.expenses.push({
+
+        item:"",
+
+        qty:1,
+
+        amount:0
+
+    });
+
+    renderExpenseList();
+
+}
+function renderExpenseList(){
+
+    let html="";
+
+    App.state.daily.expenses.forEach((item,index)=>{
+
+        html+=`
+
+<div class="grid-3 expense-row">
+
+    <input
+        placeholder="品項"
+        value="${item.item}"
+        oninput="updateExpense(${index},'item',this.value)">
+
+    <input
+        type="number"
+        value="${item.qty}"
+        oninput="updateExpense(${index},'qty',this.value)">
+
+    <input
+        type="number"
+        value="${item.amount}"
+        oninput="updateExpense(${index},'amount',this.value)">
+
+</div>
+
+`;
+
+    });
+
+    document.getElementById("expenseList").innerHTML = html;
+
+}
+function updateExpense(index,key,value){
+
+    if(key==="qty" || key==="amount"){
+
+        value = Number(value || 0);
+
+    }
+
+    App.state.daily.expenses[index][key] = value;
+
+    calculateExpense();
+
+}
+function calculateExpense(){
+
+    let total = 0;
+
+    App.state.daily.expenses.forEach(item=>{
+
+        total += Number(item.amount || 0);
+
+    });
+
+    App.state.daily.summary.expense = total;
+
+}
 function updateDailyState(){
 
     const d = App.state.daily;
@@ -937,6 +1054,9 @@ function calculateDaily(){
 
     document.getElementById("eggQtyTotal").innerHTML =
         money(d.product.eggQty);
+
+    document.getElementById("expenseTotal").innerHTML =
+        money(d.summary.expense);
 
 }
 function money(number){
