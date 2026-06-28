@@ -208,26 +208,75 @@ pageContainer.innerHTML=`
 
 <div class="card">
 
-<div class="card-title">
+    <div class="card-title">
+        系統狀態
+    </div>
 
-沉飲店內帳務系統
+    <div class="status warning">
+
+        🟡 今日營業日：尚未關帳
+
+    </div>
+
+    <div class="status month">
+
+        🟠 上個月尚未月結
+
+    </div>
 
 </div>
 
-<p>
+<div class="card">
 
-系統初始化成功
+    <div class="card-title">
+        功能選單
+    </div>
 
-</p>
+    <div class="menu-grid">
 
-<br>
+        <button class="btn menu-btn"
+            onclick="showToast('新增每日帳務 開發中')">
 
-<button
-class="btn">
+            新增每日帳務
 
-開始使用
+        </button>
 
-</button>
+        <button class="btn menu-btn"
+            onclick="showToast('查詢帳務 開發中')">
+
+            查詢帳務
+
+        </button>
+
+        <button class="btn menu-btn"
+            onclick="showToast('營業報表 開發中')">
+
+            營業報表
+
+        </button>
+
+        <button class="btn menu-btn"
+            onclick="showToast('月結 開發中')">
+
+            月結
+
+        </button>
+
+        <button class="btn menu-btn"
+            onclick="showToast('查詢月結 開發中')">
+
+            查詢月結
+
+        </button>
+
+        <button class="btn menu-btn"
+            onclick="showToast('常用管理 開發中')">
+
+            常用管理
+
+        </button>
+
+    </div>
 
 </div>
 
