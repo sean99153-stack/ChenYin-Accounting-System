@@ -182,13 +182,34 @@ function renderPage(){
     switch(App.currentPage){
 
         case "home":
-
             renderHome();
+            break;
 
+        case "daily":
+            renderDaily();
+            break;
+
+        case "search":
+            renderSearch();
+            break;
+
+        case "report":
+            renderReport();
+            break;
+
+        case "month":
+            renderMonth();
+            break;
+
+        case "monthSearch":
+            renderMonthSearch();
+            break;
+
+        case "setting":
+            renderSetting();
             break;
 
         default:
-
             renderHome();
 
     }
