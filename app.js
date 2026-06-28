@@ -626,7 +626,23 @@ pageContainer.innerHTML=`
             <b id="totalCount">0</b>
 
         </p>
+<br>
 
+<p>
+
+    飲料杯數：
+    <b id="drinkQtyTotal">0</b>
+
+</p>
+
+<br>
+
+<p>
+
+    雞蛋糕份數：
+    <b id="eggQtyTotal">0</b>
+
+</p>
     </div>
 
     ${backHomeButton()}
@@ -915,6 +931,12 @@ function calculateDaily(){
 
     document.getElementById("totalCount").innerHTML =
         money(totalCount);
+
+    document.getElementById("drinkQtyTotal").innerHTML =
+        money(d.product.drinkQty);
+
+    document.getElementById("eggQtyTotal").innerHTML =
+        money(d.product.eggQty);
 
 }
 function money(number){
