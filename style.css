@@ -92,7 +92,13 @@ body{
     opacity:.8;
 
 }
+hr{
 
+    border:none;
+    border-top:1px solid #EEEEEE;
+    margin:18px 0;
+
+}
 /* ===========================
    Main
 =========================== */
@@ -119,7 +125,7 @@ body{
 
     box-shadow:var(--shadow);
 
-    padding:18px;
+    padding:20px;
 
     margin-bottom:18px;
 
@@ -128,10 +134,14 @@ body{
 .card-title{
 
     font-size:18px;
+    font-weight:700;
+    color:var(--primary-dark);
+    margin-bottom:16px;
 
-    font-weight:bold;
+}
+.card p{
 
-    margin-bottom:14px;
+    line-height:1.8;
 
 }
 
@@ -154,15 +164,11 @@ button{
 .btn{
 
     width:100%;
-
+    min-height:52px;
     padding:14px;
-
-    font-size:16px;
-
-    font-weight:bold;
-
+    font-size:17px;
+    font-weight:700;
     color:#fff;
-
     background:var(--primary);
 
 }
@@ -206,19 +212,13 @@ select,
 textarea{
 
     width:100%;
-
-    padding:12px;
-
+    height:52px;
+    padding:12px 14px;
     margin-top:6px;
-
     margin-bottom:14px;
-
     border:1px solid var(--border);
-
     border-radius:10px;
-
     font-size:16px;
-
     background:#fff;
 
 }
@@ -226,10 +226,11 @@ textarea{
 label{
 
     display:block;
-
-    font-weight:bold;
-
-    margin-top:8px;
+    margin-top:10px;
+    margin-bottom:6px;
+    font-size:15px;
+    font-weight:700;
+    color:#444;
 
 }
 
@@ -239,10 +240,8 @@ label{
 
 .grid-2{
 
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
+    display:flex;
+    flex-direction:column;
     gap:12px;
 
 }
@@ -445,15 +444,7 @@ label{
 /* ===========================
    Mobile
 =========================== */
-
 @media(max-width:768px){
-
-    .grid-2{
-
-        grid-template-columns:1fr;
-
-    }
-
     .grid-3{
 
         grid-template-columns:1fr;
@@ -469,20 +460,14 @@ label{
 }
 
 /* ===========================
-   Desktop
+   Common
 =========================== */
+.section{
 
-@media(min-width:769px){
-
-    .btn{
-
-        width:auto;
-
-        min-width:180px;
-
-    }
+    margin-bottom:22px;
 
 }
+
 /* ===========================
    Home
 =========================== */
@@ -527,9 +512,7 @@ label{
 
 .menu-btn{
 
-    height:70px;
-
-    font-size:17px;
+    min-height:72px;
 
 }
 
@@ -540,5 +523,35 @@ label{
         grid-template-columns:1fr;
 
     }
+
+}
+.expense-card{
+
+    margin-bottom:18px;
+    border:1px solid #EEEEEE;
+
+}
+
+.input-title{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    font-weight:700;
+
+    color:#555;
+
+}
+
+.expense-card input{
+
+    margin-bottom:12px;
+
+}
+
+.expense-card .btn{
+
+    width:100%;
 
 }
