@@ -1293,4 +1293,93 @@ window.onload=function(){
 };
 function previewCloseDaily(){
 
+    calculateExpense();
+    calculateIncome();
+    calculateDaily();
+
+    const d = App.state.daily;
+
+    pageContainer.innerHTML = `
+
+<div class="card">
+
+    <div class="card-title">
+
+        日報表預覽
+
+    </div>
+
+    <h3>店面</h3>
+
+    <p>現金：${money(d.store.cash.amount)} 元（${d.store.cash.count} 單）</p>
+
+    <p>Line Pay：${money(d.store.linePay.amount)} 元（${d.store.linePay.count} 單）</p>
+
+    <hr>
+
+    <h3>Uber Eats</h3>
+
+    <p>沉飲：${money(d.uber.drink.amount)} 元（${d.uber.drink.count} 單）</p>
+
+    <p>雞蛋糕：${money(d.uber.egg.amount)} 元（${d.uber.egg.count} 單）</p>
+
+    <hr>
+
+    <h3>Foodpanda</h3>
+
+    <p>沉飲：${money(d.panda.drink.amount)} 元（${d.panda.drink.count} 單）</p>
+
+    <p>雞蛋糕：${money(d.panda.egg.amount)} 元（${d.panda.egg.count} 單）</p>
+
+    <hr>
+
+    <h3>商品數量</h3>
+
+    <p>飲料杯數：${d.product.drinkQty}</p>
+
+    <p>雞蛋糕份數：${d.product.eggQty}</p>
+
+    <hr>
+
+    <h3>統計</h3>
+
+    <p>總營業額：${money(d.summary.sales)}</p>
+
+    <p>總單數：${d.summary.orders}</p>
+
+    <p>支出：${money(d.summary.expense)}</p>
+
+    <p>其他收入：${money(d.summary.income)}</p>
+
+    <p><b>淨收入：${money(d.summary.net)}</b></p>
+
+    <br>
+
+    <button
+        class="btn"
+        onclick="renderDaily()">
+
+        返回修改
+
+    </button>
+
+    <button
+        class="btn success"
+        onclick="confirmCloseDaily()">
+
+        確認關帳
+
+    </button>
+
+</div>
+
+`;
+
+}
+function confirmCloseDaily(){
+
+    showToast("關帳成功（下一步將串接 Google Sheets）");
+
+    changePage("home");
+
 }
