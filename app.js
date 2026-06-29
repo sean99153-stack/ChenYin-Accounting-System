@@ -412,214 +412,269 @@ pageContainer.innerHTML=`
         新增每日帳務
     </div>
 
+    <div class="card section">
+
+    <div class="card-title">
+
+        🧾 店面
+
+    </div>
+
     <div class="card">
 
         <div class="card-title">
-            店面
-        </div>
 
-        <div class="grid-2">
-
-            <div>
-
-                <label>現金金額</label>
-
-                <input
-                    type="number"
-                    id="cashAmount"
-                    value="0"
-                    oninput="calculateDaily()">
-
-            </div>
-
-            <div>
-
-                <label>現金單數</label>
-
-                <input
-                    type="number"
-                    id="cashCount"
-                    value="0"
-                    oninput="calculateDaily()">
-
-            </div>
-
-            <div>
-
-                <label>Line Pay 金額</label>
-
-                <input
-                    type="number"
-                    id="lineAmount"
-                    value="0"
-                    oninput="calculateDaily()">
-
-            </div>
-
-            <div>
-
-                <label>Line Pay 單數</label>
-
-                <input
-                    type="number"
-                    id="lineCount"
-                    value="0"
-                    oninput="calculateDaily()">
-
-            </div>
+            💵 現金
 
         </div>
+
+        <label>
+
+            金額
+
+        </label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="cashAmount"
+            value="0"
+            oninput="calculateDaily()">
+
+        <label>
+
+            單數
+
+        </label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="cashCount"
+            value="0"
+            oninput="calculateDaily()">
 
     </div>
-<div class="card">
 
-    <div class="card-title">
-        Uber Eats
-    </div>
+    <div class="card">
 
-    <div class="grid-2">
+        <div class="card-title">
 
-        <div>
-
-            <label>沉飲金額</label>
-
-            <input
-                type="number"
-                id="uberDrinkAmount"
-                value="0"
-                oninput="calculateDaily()">
+            📱 Line Pay
 
         </div>
 
-        <div>
+        <label>
 
-            <label>沉飲單數</label>
+            金額
 
-            <input
-                type="number"
-                id="uberDrinkCount"
-                value="0"
-                oninput="calculateDaily()">
+        </label>
 
-        </div>
+        <input
+            type="number"
+            inputmode="numeric"
+            id="lineAmount"
+            value="0"
+            oninput="calculateDaily()">
 
-        <div>
+        <label>
 
-            <label>雞蛋糕金額</label>
+            單數
 
-            <input
-                type="number"
-                id="uberEggAmount"
-                value="0"
-                oninput="calculateDaily()">
+        </label>
 
-        </div>
-
-        <div>
-
-            <label>雞蛋糕單數</label>
-
-            <input
-                type="number"
-                id="uberEggCount"
-                value="0"
-                oninput="calculateDaily()">
-
-        </div>
+        <input
+            type="number"
+            inputmode="numeric"
+            id="lineCount"
+            value="0"
+            oninput="calculateDaily()">
 
     </div>
 
 </div>
-<div class="card">
+   
+   <div class="card section">
 
     <div class="card-title">
-        Foodpanda
+
+        🚗 Uber Eats
+
     </div>
 
-    <div class="grid-2">
+    <div class="card">
 
-        <div>
+        <div class="card-title">
 
-            <label>沉飲金額</label>
-
-            <input
-                type="number"
-                id="pandaDrinkAmount"
-                value="0"
-                oninput="calculateDaily()">
+            🥤 沉飲
 
         </div>
 
-        <div>
+        <label>金額</label>
 
-            <label>沉飲單數</label>
+        <input
+            type="number"
+            inputmode="numeric"
+            id="uberDrinkAmount"
+            value="0"
+            oninput="calculateDaily()">
 
-            <input
-                type="number"
-                id="pandaDrinkCount"
-                value="0"
-                oninput="calculateDaily()">
+        <label>單數</label>
 
-        </div>
+        <input
+            type="number"
+            inputmode="numeric"
+            id="uberDrinkCount"
+            value="0"
+            oninput="calculateDaily()">
 
-        <div>
+    </div>
 
-            <label>雞蛋糕金額</label>
+    <div class="card">
 
-            <input
-                type="number"
-                id="pandaEggAmount"
-                value="0"
-                oninput="calculateDaily()">
+        <div class="card-title">
 
-        </div>
-
-        <div>
-
-            <label>雞蛋糕單數</label>
-
-            <input
-                type="number"
-                id="pandaEggCount"
-                value="0"
-                oninput="calculateDaily()">
+            🧇 雞蛋糕
 
         </div>
+
+        <label>金額</label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="uberEggAmount"
+            value="0"
+            oninput="calculateDaily()">
+
+        <label>單數</label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="uberEggCount"
+            value="0"
+            oninput="calculateDaily()">
 
     </div>
 
 </div>
-<div class="card">
+<div class="card section">
 
     <div class="card-title">
-        商品數量
+
+        🐼 Foodpanda
+
     </div>
 
-    <div class="grid-2">
+    <div class="card">
 
-        <div>
+        <div class="card-title">
 
-            <label>飲料杯數</label>
-
-            <input
-                type="number"
-                id="drinkQty"
-                value="0"
-                oninput="calculateDaily()">
+            🥤 沉飲
 
         </div>
 
-        <div>
+        <label>金額</label>
 
-            <label>雞蛋糕份數</label>
+        <input
+            type="number"
+            inputmode="numeric"
+            id="pandaDrinkAmount"
+            value="0"
+            oninput="calculateDaily()">
 
-            <input
-                type="number"
-                id="eggQty"
-                value="0"
-                oninput="calculateDaily()">
+        <label>單數</label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="pandaDrinkCount"
+            value="0"
+            oninput="calculateDaily()">
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+
+            🧇 雞蛋糕
 
         </div>
+
+        <label>金額</label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="pandaEggAmount"
+            value="0"
+            oninput="calculateDaily()">
+
+        <label>單數</label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="pandaEggCount"
+            value="0"
+            oninput="calculateDaily()">
+
+    </div>
+
+</div>
+<div class="card section">
+
+    <div class="card-title">
+
+        📦 商品數量
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+
+            🥤 飲料
+
+        </div>
+
+        <label>
+
+            杯數
+
+        </label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="drinkQty"
+            value="0"
+            oninput="calculateDaily()">
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+
+            🧇 雞蛋糕
+
+        </div>
+
+        <label>
+
+            份數
+
+        </label>
+
+        <input
+            type="number"
+            inputmode="numeric"
+            id="eggQty"
+            value="0"
+            oninput="calculateDaily()">
 
     </div>
 
