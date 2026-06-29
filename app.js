@@ -634,6 +634,25 @@ pageContainer.innerHTML=`
     </button>
 
 </div>
+<div class="card">
+
+    <div class="card-title">
+        其他收入
+    </div>
+
+    <div id="incomeList"></div>
+
+    <br>
+
+    <button
+        class="btn"
+        onclick="addIncome()">
+
+        ＋ 新增收入
+
+    </button>
+
+</div>
     <div class="card">
 
         <div class="card-title">
@@ -683,6 +702,23 @@ pageContainer.innerHTML=`
     <b id="expenseTotal">0</b>
 
 </p>
+<br>
+
+<p>
+
+    其他收入：
+    <b id="incomeTotal">0</b>
+
+</p>
+
+<br>
+
+<p>
+
+    淨收入：
+    <b id="netTotal">0</b>
+
+</p>
     </div>
 
     ${backHomeButton()}
@@ -691,9 +727,15 @@ pageContainer.innerHTML=`
 
 `;
 
-calculateDaily();
-
 renderExpenseList();
+
+renderIncomeList();
+
+calculateExpense();
+
+calculateIncome();
+
+calculateDaily();
 
 }
 function renderSearch(){
@@ -912,6 +954,23 @@ function addExpense(){
     calculateDaily();
 
 }
+function addIncome(){
+
+    App.state.daily.incomes.push({
+
+        item:"",
+        qty:1,
+        amount:0
+
+    });
+
+    renderIncomeList();
+
+    calculateIncome();
+
+    calculateDaily();
+
+}
 function renderExpenseList(){
 
     let html="";
@@ -951,6 +1010,99 @@ function renderExpenseList(){
     });
 
     document.getElementById("expenseList").innerHTML = html;
+
+}
+function renderIncomeList(){
+
+    let html="";
+
+    App.state.daily.incomes.forEach((item,index)=>{
+
+        html+=`
+
+<div class="grid-4 expense-row">
+
+    <input
+        placeholder="品項"
+        value="${item.item}"
+        oninput="updateIncome(${index},'item',this.value)">
+
+    <input
+        type="number"
+        value="${item.qty}"
+        oninput="updateIncome(${index},'qty',this.value)">
+
+    <input
+        type="number"
+        value="${item.amount}"
+        oninput="updateIncome(${index},'amount',this.value)">
+
+    <button
+        class="btn danger"
+        onclick="deleteIncome(${index})">
+
+        刪除
+
+    </button>
+
+</div>
+
+`;
+
+    });
+
+    document.getElementById("incomeList").innerHTML = html;
+
+}
+function updateIncome(index,key,value){
+
+    if(key==="qty" || key==="amount"){
+
+        value = Number(value || 0);
+
+    }
+
+    App.state.daily.incomes[index][key] = value;
+
+    calculateIncome();
+
+    calculateDaily();
+
+}
+function calculateIncome(){
+
+    let total = 0;
+
+    App.state.daily.incomes.forEach(item=>{
+
+        total += Number(item.amount || 0);
+
+    });
+
+    App.state.daily.summary.income = total;
+
+}
+function deleteIncome(index){
+
+    App.state.daily.incomes.splice(index,1);
+
+    if(App.state.daily.incomes.length===0){
+
+        App.state.daily.incomes.push({
+
+            item:"",
+            qty:1,
+            amount:0
+
+        });
+
+    }
+
+    renderIncomeList();
+
+    calculateIncome();
+
+    calculateDaily();
 
 }
 function updateExpense(index,key,value){
@@ -1093,6 +1245,16 @@ function calculateDaily(){
 
     document.getElementById("expenseTotal").innerHTML =
         money(d.summary.expense);
+    d.summary.net =
+    d.summary.sales +
+    d.summary.income -
+    d.summary.expense;
+    
+    document.getElementById("incomeTotal").innerHTML =
+    money(d.summary.income);
+
+    document.getElementById("netTotal").innerHTML =
+    money(d.summary.net);
 
 }
 function money(number){
