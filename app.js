@@ -986,35 +986,69 @@ function renderExpenseList(){
 
     App.state.daily.expenses.forEach((item,index)=>{
 
-        html+=`
+        html += `
 
-<div class="grid-4 expense-row">
+<div class="card expense-card">
+
+    <div class="card-title">
+
+        支出 ${index + 1}
+
+    </div>
+
+   <label class="input-title">
+
+    品項
+
+    </label>
 
     <input
-        placeholder="品項"
+        placeholder="例如：瓦斯、牛奶、糖..."
         value="${item.item}"
         oninput="updateExpense(${index},'item',this.value)">
 
+    <br>
+
+    <label class="input-title">
+
+    數量
+
+    </label>
+
     <input
         type="number"
+        inputmode="numeric"
         value="${item.qty}"
         oninput="updateExpense(${index},'qty',this.value)">
 
+    <br>
+
+    <label class="input-title">
+
+    金額
+
+    </label>
+
     <input
         type="number"
+        inputmode="numeric"
         value="${item.amount}"
         oninput="updateExpense(${index},'amount',this.value)">
-        <button
-    class="btn danger"
-    onclick="deleteExpense(${index})">
 
-    刪除
+    <br><br>
 
-</button>
+    <button
+        class="btn danger"
+        onclick="deleteExpense(${index})">
+
+        🗑️ 刪除此筆
+
+    </button>
 
 </div>
 
 `;
+
 
     });
 
@@ -1027,30 +1061,62 @@ function renderIncomeList(){
 
     App.state.daily.incomes.forEach((item,index)=>{
 
-        html+=`
+        html += `
 
-<div class="grid-4 expense-row">
+<div class="card expense-card">
+
+    <div class="card-title">
+
+        其他收入 ${index + 1}
+
+    </div>
+
+    <label class="input-title">
+
+        品項
+
+    </label>
 
     <input
-        placeholder="品項"
+        placeholder="例如：代售、退款、其他..."
         value="${item.item}"
         oninput="updateIncome(${index},'item',this.value)">
 
-    <input
-        type="number"
-        value="${item.qty}"
-        oninput="updateIncome(${index},'qty',this.value)">
+    <br>
+
+    <label class="input-title">
+
+        數量
+
+    </label>
 
     <input
         type="number"
+        inputmode="numeric"
+        value="${item.qty}"
+        oninput="updateIncome(${index},'qty',this.value)">
+
+    <br>
+
+    <label class="input-title">
+
+        金額
+
+    </label>
+
+    <input
+        type="number"
+        inputmode="numeric"
         value="${item.amount}"
         oninput="updateIncome(${index},'amount',this.value)">
+
+    <br><br>
 
     <button
         class="btn danger"
         onclick="deleteIncome(${index})">
 
-        刪除
+        🗑️ 刪除此筆
 
     </button>
 
