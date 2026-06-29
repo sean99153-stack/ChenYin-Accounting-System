@@ -27,7 +27,9 @@ function getSpreadsheet(){
     return SpreadsheetApp
         .getActiveSpreadsheet();
 
-}function getSheet(name){
+}
+
+function getSheet(name){
 
     return getSpreadsheet()
         .getSheetByName(name);
@@ -35,5 +37,19 @@ function getSpreadsheet(){
 }
 
 function getSetting(){
+
+    const sheet = getSheet(SHEET.SETTING);
+
+    const data = sheet.getDataRange().getValues();
+
+    const setting = {};
+
+    for(let i=1;i<data.length;i++){
+
+        setting[data[i][0]] = data[i][1];
+
+    }
+
+    return setting;
 
 }
