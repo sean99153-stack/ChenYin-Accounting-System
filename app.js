@@ -907,6 +907,10 @@ function addExpense(){
 
     renderExpenseList();
 
+    calculateExpense();
+
+    calculateDaily();
+
 }
 function renderExpenseList(){
 
@@ -916,7 +920,7 @@ function renderExpenseList(){
 
         html+=`
 
-<div class="grid-3 expense-row">
+<div class="grid-4 expense-row">
 
     <input
         placeholder="品項"
@@ -932,6 +936,13 @@ function renderExpenseList(){
         type="number"
         value="${item.amount}"
         oninput="updateExpense(${index},'amount',this.value)">
+        <button
+    class="btn danger"
+    onclick="deleteExpense(${index})">
+
+    刪除
+
+</button>
 
 </div>
 
@@ -954,6 +965,8 @@ function updateExpense(index,key,value){
 
     calculateExpense();
 
+    calculateDaily();
+
 }
 function calculateExpense(){
 
@@ -966,6 +979,29 @@ function calculateExpense(){
     });
 
     App.state.daily.summary.expense = total;
+
+}
+function deleteExpense(index){
+
+    App.state.daily.expenses.splice(index,1);
+
+    if(App.state.daily.expenses.length===0){
+
+        App.state.daily.expenses.push({
+
+            item:"",
+            qty:1,
+            amount:0
+
+        });
+
+    }
+
+    renderExpenseList();
+
+    calculateExpense();
+
+    calculateDaily();
 
 }
 function updateDailyState(){
