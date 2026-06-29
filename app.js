@@ -382,11 +382,20 @@ function backHomeButton(){
     return `
 
 <button
-class="btn"
+    class="btn success"
+    onclick="previewCloseDaily()">
 
-onclick="changePage('home')">
+    關帳
 
-返回首頁
+</button>
+
+<br><br>
+
+<button
+    class="btn"
+    onclick="changePage('home')">
+
+    返回首頁
 
 </button>
 
@@ -1282,3 +1291,6 @@ window.onload=function(){
     renderPage();
 
 };
+function previewCloseDaily(){
+
+}
