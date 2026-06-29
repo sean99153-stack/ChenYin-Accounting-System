@@ -53,3 +53,86 @@ function getSetting(){
     return setting;
 
 }
+
+function appendData(sheetName, rowData){
+
+    const sheet = getSheet(sheetName);
+
+    const row = sheet.getLastRow() + 1;
+
+    sheet
+        .getRange(row, 1, 1, rowData.length)
+        .setValues([rowData]);
+
+}
+
+function saveDaily(data){
+
+    try{
+
+const rowData = [
+
+    data.businessDate,
+
+    data.closeTime,
+
+    data.store.cash.amount,
+    data.store.cash.count,
+
+    data.store.linePay.amount,
+    data.store.linePay.count,
+
+    data.uber.drink.amount,
+    data.uber.drink.count,
+
+    data.uber.egg.amount,
+    data.uber.egg.count,
+
+    data.panda.drink.amount,
+    data.panda.drink.count,
+
+    data.panda.egg.amount,
+    data.panda.egg.count,
+
+    data.product.drinkQty,
+    data.product.eggQty,
+
+    data.summary.sales,
+    data.summary.orders,
+
+    data.summary.expense,
+
+    data.summary.income,
+
+    data.summary.net,
+
+    "Y"
+
+];
+
+appendData(
+    SHEET.DAILY,
+    rowData
+);
+
+        return{
+
+            success:true
+
+        };
+
+    }
+
+    catch(error){
+
+        return{
+
+            success:false,
+
+            message:error.toString()
+
+        };
+
+    }
+
+}
