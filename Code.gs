@@ -238,15 +238,73 @@ function loadDaily(businessDate){
 
         if(String(data[i][0]) === String(businessDate)){
 
-            return{
+            const row = data[i];
 
-                success:true,
+return{
 
-                row:i+1,
+    success:true,
 
-                data:data[i]
+    row:i+1,
 
-            };
+    daily:{
+
+        businessDate:row[0],
+
+        closeTime:row[1],
+
+        store:{
+            cash:{
+                amount:row[2],
+                count:row[3]
+            },
+            linePay:{
+                amount:row[4],
+                count:row[5]
+            }
+        },
+
+        uber:{
+            drink:{
+                amount:row[6],
+                count:row[7]
+            },
+            egg:{
+                amount:row[8],
+                count:row[9]
+            }
+        },
+
+        panda:{
+            drink:{
+                amount:row[10],
+                count:row[11]
+            },
+            egg:{
+                amount:row[12],
+                count:row[13]
+            }
+        },
+
+        product:{
+            drinkQty:row[14],
+            eggQty:row[15]
+        },
+
+        summary:{
+            sales:row[16],
+            orders:row[17],
+            expense:row[18],
+            income:row[19],
+            net:row[20]
+        },
+
+        expenses:getExpenseList(businessDate),
+
+        incomes:getIncomeList(businessDate)
+
+    }
+
+};
 
         }
 
@@ -259,5 +317,63 @@ function loadDaily(businessDate){
         message:"查無資料"
 
     };
+
+}
+function getExpenseList(businessDate){
+
+    const sheet = getSheet(SHEET.EXPENSE);
+
+    const data = sheet.getDataRange().getValues();
+
+    const list = [];
+
+    for(let i=1;i<data.length;i++){
+
+        if(String(data[i][0])===String(businessDate)){
+
+            list.push({
+
+                name:data[i][2],
+
+                qty:data[i][3],
+
+                amount:data[i][4]
+
+            });
+
+        }
+
+    }
+
+    return list;
+
+}
+function getIncomeList(businessDate){
+
+    const sheet = getSheet(SHEET.INCOME);
+
+    const data = sheet.getDataRange().getValues();
+
+    const list = [];
+
+    for(let i=1;i<data.length;i++){
+
+        if(String(data[i][0])===String(businessDate)){
+
+            list.push({
+
+                name:data[i][2],
+
+                qty:data[i][3],
+
+                amount:data[i][4]
+
+            });
+
+        }
+
+    }
+
+    return list;
 
 }
