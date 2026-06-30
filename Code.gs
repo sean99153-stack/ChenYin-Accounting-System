@@ -377,3 +377,199 @@ function getIncomeList(businessDate){
     return list;
 
 }
+function updateDaily(data){
+
+  try{
+
+    const sheet = getSheet(SHEET.DAILY);
+
+    const rows = sheet.getDataRange().getValues();
+
+    let rowIndex = -1;
+
+    for(let i=1;i<rows.length;i++){
+
+      if(String(rows[i][0])===String(data.businessDate)){
+
+        rowIndex=i+1;
+
+        break;
+
+      }
+
+    }
+
+    if(rowIndex==-1){
+
+      return{
+
+        success:false,
+
+        message:"查無此營業日"
+
+      };
+
+    }
+
+    sheet.getRange(rowIndex,1,1,23).setValues([
+
+      [
+
+        data.businessDate,
+
+        data.closeTime,
+
+        data.store.cash.amount,
+        data.store.cash.count,
+
+        data.store.linePay.amount,
+        data.store.linePay.count,
+
+        data.uber.drink.amount,
+        data.uber.drink.count,
+
+        data.uber.egg.amount,
+        data.uber.egg.count,
+
+        data.panda.drink.amount,
+        data.panda.drink.count,
+
+        data.panda.egg.amount,
+        data.panda.egg.count,
+
+        data.product.drinkQty,
+        data.product.eggQty,
+
+        data.summary.sales,
+        data.summary.orders,
+
+        data.summary.expense,
+
+        data.summary.income,
+
+        data.summary.net,
+
+        "Y"
+
+      ]
+
+    ]);
+
+    deleteRowsByBusinessDate(
+    SHEET.EXPENSE,
+    data.businessDate
+);
+
+deleteRowsByBusinessDate(
+    SHEET.INCOME,
+    data.businessDate
+);
+
+if(data.expenses){
+
+    data.expenses.forEach(item=>{
+
+        if(
+            !item.name &&
+            !item.qty &&
+            !item.amount
+        ){
+            return;
+        }
+
+        appendData(
+
+            SHEET.EXPENSE,
+
+            [
+
+                data.businessDate,
+
+                new Date(),
+
+                item.name,
+
+                item.qty,
+
+                item.amount
+
+            ]
+
+        );
+
+    });
+
+}
+
+if(data.incomes){
+
+    data.incomes.forEach(item=>{
+
+        if(
+            !item.name &&
+            !item.qty &&
+            !item.amount
+        ){
+            return;
+        }
+
+        appendData(
+
+            SHEET.INCOME,
+
+            [
+
+                data.businessDate,
+
+                new Date(),
+
+                item.name,
+
+                item.qty,
+
+                item.amount
+
+            ]
+
+        );
+
+    });
+
+}
+return{
+
+      success:true
+
+    };
+  }
+
+  catch(err){
+
+    return{
+
+      success:false,
+
+      message:err.toString()
+
+    };
+
+  }
+
+}
+function deleteRowsByBusinessDate(sheetName,businessDate){
+
+  const sheet=getSheet(sheetName);
+
+  const data=sheet.getDataRange().getValues();
+
+  for(let i=data.length-1;i>=1;i--){
+
+    if(String(data[i][0])===String(businessDate)){
+
+      sheet.deleteRow(i+1);
+
+    }
+
+  }
+
+}
