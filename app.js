@@ -68,7 +68,7 @@ const App = {
 
             expenses:[
 {
-    item:"",
+    name:"",
     qty:1,
     amount:0
 }
@@ -76,7 +76,7 @@ const App = {
 
 incomes:[
 {
-    item:"",
+    name:"",
     qty:1,
     amount:0
 }
@@ -1531,35 +1531,43 @@ function confirmCloseDaily(){
 
     d.closeTime = new Date().toLocaleTimeString("zh-TW");
 
-    google.script.run
+    const runner = google.script.run
+    .withSuccessHandler(function(res){
 
-        .withSuccessHandler(function(res){
+        if(res.success){
 
-            if(res.success){
+            resetDailyState();
 
-                resetDailyState();
+            App.state.editMode = false;
+            App.state.editingDate = "";
 
-                showToast("關帳成功");
+            showToast("儲存成功");
 
-                changePage("home");
+            changePage("home");
 
-            }else{
+        }else{
 
-                showToast(res.message);
+            showToast(res.message);
 
-            }
+        }
 
-        })
+    })
+    .withFailureHandler(function(err){
 
-        .withFailureHandler(function(err){
+        showToast(err.message);
 
-            showToast(err.message);
+    });
 
-        })
+if(App.state.editMode){
 
-        .saveDaily(d);
+    runner.updateDaily(d);
+
+}else{
+
+    runner.saveDaily(d);
 
 }
+}    
 function resetDailyState(){
 
     App.state.daily = {
