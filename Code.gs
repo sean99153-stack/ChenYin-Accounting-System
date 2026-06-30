@@ -69,7 +69,17 @@ function appendData(sheetName, rowData){
 function saveDaily(data){
 
     try{
+if(isDailyClosed(data.businessDate)){
 
+    return{
+
+        success:false,
+
+        message:"今日已完成關帳"
+
+    };
+
+}
 const rowData = [
 
     data.businessDate,
@@ -114,7 +124,70 @@ appendData(
     SHEET.DAILY,
     rowData
 );
+if(data.expenses && data.expenses.length){
 
+    data.expenses.forEach(item=>{
+
+        if(
+            !item.name &&
+            !item.qty &&
+            !item.amount
+        ){
+            return;
+        }
+
+        appendData(
+            SHEET.EXPENSE,
+            [
+
+                data.businessDate,
+
+                new Date(),
+
+                item.name,
+
+                item.qty,
+
+                item.amount
+
+            ]
+        );
+
+    });
+
+}
+if(data.incomes && data.incomes.length){
+
+    data.incomes.forEach(item=>{
+
+        if(
+            !item.name &&
+            !item.qty &&
+            !item.amount
+        ){
+            return;
+        }
+
+        appendData(
+            SHEET.INCOME,
+            [
+
+                data.businessDate,
+
+                new Date(),
+
+                item.name,
+
+                item.qty,
+
+                item.amount
+
+            ]
+        );
+
+    });
+
+}
         return{
 
             success:true
@@ -134,5 +207,57 @@ appendData(
         };
 
     }
+
+}
+function isDailyClosed(businessDate){
+
+    const sheet = getSheet(SHEET.DAILY);
+
+    const data = sheet.getDataRange().getValues();
+
+    for(let i=1;i<data.length;i++){
+
+        if(String(data[i][0])===String(businessDate)){
+
+            return true;
+
+        }
+
+    }
+
+    return false;
+
+}
+function loadDaily(businessDate){
+
+    const sheet = getSheet(SHEET.DAILY);
+
+    const data = sheet.getDataRange().getValues();
+
+    for(let i=1;i<data.length;i++){
+
+        if(String(data[i][0]) === String(businessDate)){
+
+            return{
+
+                success:true,
+
+                row:i+1,
+
+                data:data[i]
+
+            };
+
+        }
+
+    }
+
+    return{
+
+        success:false,
+
+        message:"查無資料"
+
+    };
 
 }
