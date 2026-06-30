@@ -15,7 +15,11 @@ const App = {
 
     state:{
 
-        settings:{
+    editMode:false,
+
+    editingDate:"",
+
+    settings:{
             closeTime:"03:00"
         },
 
@@ -272,7 +276,7 @@ function renderPage(){
 
         case "month":
             renderMonth();
-            break;
+                break;
 
         case "monthSearch":
             renderMonthSearch();
@@ -428,7 +432,7 @@ pageContainer.innerHTML=`
             type="number"
             inputmode="numeric"
             id="cashAmount"
-            value="0"
+            value="${App.state.daily.store.cash.amount}"
             oninput="calculateDaily()">
 
         <label>
@@ -441,7 +445,7 @@ pageContainer.innerHTML=`
             type="number"
             inputmode="numeric"
             id="cashCount"
-            value="0"
+            value="${App.state.daily.store.cash.count}"
             oninput="calculateDaily()">
 
     </div>
@@ -464,7 +468,7 @@ pageContainer.innerHTML=`
             type="number"
             inputmode="numeric"
             id="lineAmount"
-            value="0"
+            value="${App.state.daily.store.linePay.amount}"
             oninput="calculateDaily()">
 
         <label>
@@ -477,7 +481,7 @@ pageContainer.innerHTML=`
             type="number"
             inputmode="numeric"
             id="lineCount"
-            value="0"
+            value="${App.state.daily.store.linePay.count}"
             oninput="calculateDaily()">
 
     </div>
@@ -506,7 +510,7 @@ pageContainer.innerHTML=`
             type="number"
             inputmode="numeric"
             id="uberDrinkAmount"
-            value="0"
+            value="${App.state.daily.uber.drink.amount}"
             oninput="calculateDaily()">
 
         <label>單數</label>
@@ -514,8 +518,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="uberDrinkCount"
-            value="0"
+            value="${App.state.daily.uber.drink.count}"
             oninput="calculateDaily()">
 
     </div>
@@ -533,8 +536,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="uberEggAmount"
-            value="0"
+            value="${App.state.daily.uber.egg.amount}"
             oninput="calculateDaily()">
 
         <label>單數</label>
@@ -542,8 +544,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="uberEggCount"
-            value="0"
+            value="${App.state.daily.uber.egg.count}"
             oninput="calculateDaily()">
 
     </div>
@@ -570,8 +571,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="pandaDrinkAmount"
-            value="0"
+            value="${App.state.daily.panda.drink.amount}"
             oninput="calculateDaily()">
 
         <label>單數</label>
@@ -579,8 +579,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="pandaDrinkCount"
-            value="0"
+            value="${App.state.daily.panda.drink.count}"
             oninput="calculateDaily()">
 
     </div>
@@ -598,8 +597,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="pandaEggAmount"
-            value="0"
+            value="${App.state.daily.panda.egg.amount}"
             oninput="calculateDaily()">
 
         <label>單數</label>
@@ -607,8 +605,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="pandaEggCount"
-            value="0"
+            value="${App.state.daily.panda.egg.count}"
             oninput="calculateDaily()">
 
     </div>
@@ -639,8 +636,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="drinkQty"
-            value="0"
+            value="${App.state.daily.product.drinkQty}"
             oninput="calculateDaily()">
 
     </div>
@@ -662,8 +658,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
-            id="eggQty"
-            value="0"
+            value="${App.state.daily.product.eggQty}"
             oninput="calculateDaily()">
 
     </div>
@@ -1681,7 +1676,28 @@ function renderSearchResult(d){
 
         </div>
 
-    `;
+<br>
+
+<button
+    class="btn btn-warning"
+    onclick='openDailyEdit(${JSON.stringify(d)})'>
+
+    修改帳務
+
+</button>
+
+`;
+
+}
+function openDailyEdit(d){
+
+    App.state.editMode = true;
+
+    App.state.editingDate = d.businessDate;
+
+    App.state.daily = d;
+
+    changePage("daily");
 
 }
 function dailyActionButtons(){
