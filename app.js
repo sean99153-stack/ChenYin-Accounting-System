@@ -382,7 +382,7 @@ function backHomeButton(){
     return `
 
 <button
-    class="btn success"
+    class="btn btn-success"
     onclick="previewCloseDaily()">
 
     關帳
@@ -1093,7 +1093,7 @@ function renderExpenseList(){
     <br><br>
 
     <button
-        class="btn danger"
+        class="btn btn-danger"
         onclick="deleteExpense(${index})">
 
         🗑️ 刪除此筆
@@ -1168,7 +1168,7 @@ function renderIncomeList(){
     <br><br>
 
     <button
-        class="btn danger"
+        class="btn btn-danger"
         onclick="deleteIncome(${index})">
 
         🗑️ 刪除此筆
@@ -1394,6 +1394,22 @@ function money(number){
 
 }
 
+function getBusinessDate(){
+
+    const now = new Date();
+
+    const hour = now.getHours();
+
+    if(hour < 3){
+
+        now.setDate(now.getDate()-1);
+
+    }
+
+    return now.toLocaleDateString("sv-SE");
+
+}
+
 function number(value){
 
     return Number(value||0);
@@ -1485,7 +1501,7 @@ function previewCloseDaily(){
     </button>
 
     <button
-        class="btn success"
+        class="btn btn-success"
         onclick="confirmCloseDaily()">
 
         確認關帳
@@ -1499,8 +1515,89 @@ function previewCloseDaily(){
 }
 function confirmCloseDaily(){
 
-    showToast("關帳成功（下一步將串接 Google Sheets）");
+    const d = App.state.daily;
 
-    changePage("home");
+    d.businessDate = getBusinessDate();
+
+    d.closeTime = new Date().toLocaleTimeString("zh-TW");
+
+    google.script.run
+
+        .withSuccessHandler(function(res){
+
+            if(res.success){
+
+                resetDailyState();
+
+                showToast("關帳成功");
+
+                changePage("home");
+
+            }else{
+
+                showToast(res.message);
+
+            }
+
+        })
+
+        .withFailureHandler(function(err){
+
+            showToast(err.message);
+
+        })
+
+        .saveDaily(d);
+
+}
+function resetDailyState(){
+
+    App.state.daily = {
+
+        store:{
+            cash:{amount:0,count:0},
+            linePay:{amount:0,count:0}
+        },
+
+        uber:{
+            drink:{amount:0,count:0},
+            egg:{amount:0,count:0}
+        },
+
+        panda:{
+            drink:{amount:0,count:0},
+            egg:{amount:0,count:0}
+        },
+
+        product:{
+            drinkQty:0,
+            eggQty:0
+        },
+
+        expenses:[
+            {
+                item:"",
+                qty:1,
+                amount:0
+            }
+        ],
+
+        incomes:[
+            {
+                item:"",
+                qty:1,
+                amount:0
+            }
+        ],
+
+        summary:{
+            sales:0,
+            orders:0,
+            expense:0,
+            income:0,
+            net:0
+        }
+
+    };
 
 }
