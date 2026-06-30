@@ -67,19 +67,19 @@ const App = {
             },
 
             expenses:[
-    {
-        item:"",
-        qty:1,
-        amount:0
-    }
+{
+    item:"",
+    qty:1,
+    amount:0
+}
 ],
 
-            incomes:[
-    {
-        item:"",
-        qty:1,
-        amount:0
-    }
+incomes:[
+{
+    item:"",
+    qty:1,
+    amount:0
+}
 ],
 
             summary:{
@@ -518,6 +518,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="uberDrinkCount"
             value="${App.state.daily.uber.drink.count}"
             oninput="calculateDaily()">
 
@@ -536,6 +537,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="uberEggAmount"
             value="${App.state.daily.uber.egg.amount}"
             oninput="calculateDaily()">
 
@@ -544,6 +546,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="uberEggCount"
             value="${App.state.daily.uber.egg.count}"
             oninput="calculateDaily()">
 
@@ -571,6 +574,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="pandaDrinkAmount"
             value="${App.state.daily.panda.drink.amount}"
             oninput="calculateDaily()">
 
@@ -579,6 +583,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="pandaDrinkCount"
             value="${App.state.daily.panda.drink.count}"
             oninput="calculateDaily()">
 
@@ -597,6 +602,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="pandaEggAmount"
             value="${App.state.daily.panda.egg.amount}"
             oninput="calculateDaily()">
 
@@ -605,6 +611,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="pandaEggCount"
             value="${App.state.daily.panda.egg.count}"
             oninput="calculateDaily()">
 
@@ -636,6 +643,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="drinkQty"
             value="${App.state.daily.product.drinkQty}"
             oninput="calculateDaily()">
 
@@ -658,6 +666,7 @@ pageContainer.innerHTML=`
         <input
             type="number"
             inputmode="numeric"
+            id="eggQty"
             value="${App.state.daily.product.eggQty}"
             oninput="calculateDaily()">
 
@@ -1008,11 +1017,9 @@ function addExpense(){
 
     App.state.daily.expenses.push({
 
-        item:"",
-
-        qty:1,
-
-        amount:0
+            name:"",
+    qty:1,
+    amount:0
 
     });
 
@@ -1026,12 +1033,10 @@ function addExpense(){
 function addIncome(){
 
     App.state.daily.incomes.push({
-
-        item:"",
-        qty:1,
-        amount:0
-
-    });
+    name:"",
+    qty:1,
+    amount:0
+});
 
     renderIncomeList();
 
@@ -1064,8 +1069,8 @@ function renderExpenseList(){
 
     <input
         placeholder="例如：瓦斯、牛奶、糖..."
-        value="${item.item}"
-        oninput="updateExpense(${index},'item',this.value)">
+        value="${item.name}"
+        oninput="updateExpense(${index},'name',this.value)">
 
     <br>
 
@@ -1139,8 +1144,8 @@ function renderIncomeList(){
 
     <input
         placeholder="例如：代售、退款、其他..."
-        value="${item.item}"
-        oninput="updateIncome(${index},'item',this.value)">
+        value="${item.name}"
+        oninput="updateIncome(${index},'name',this.value)">
 
     <br>
 
@@ -1225,11 +1230,11 @@ function deleteIncome(index){
 
         App.state.daily.incomes.push({
 
-            item:"",
-            qty:1,
-            amount:0
+    name:"",
+    qty:1,
+    amount:0
 
-        });
+});
 
     }
 
@@ -1276,11 +1281,11 @@ function deleteExpense(index){
 
         App.state.daily.expenses.push({
 
-            item:"",
-            qty:1,
-            amount:0
+        name:"",
+        qty:1,
+        amount:0
 
-        });
+});
 
     }
 
@@ -1581,7 +1586,7 @@ function resetDailyState(){
 
         expenses:[
             {
-                item:"",
+                name:"",
                 qty:1,
                 amount:0
             }
@@ -1589,7 +1594,7 @@ function resetDailyState(){
 
         incomes:[
             {
-                item:"",
+                name:"",
                 qty:1,
                 amount:0
             }
