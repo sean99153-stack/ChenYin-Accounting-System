@@ -382,16 +382,6 @@ function backHomeButton(){
     return `
 
 <button
-    class="btn btn-success"
-    onclick="previewCloseDaily()">
-
-    關帳
-
-</button>
-
-<br><br>
-
-<button
     class="btn"
     onclick="changePage('home')">
 
@@ -785,7 +775,7 @@ pageContainer.innerHTML=`
 </p>
     </div>
 
-    ${backHomeButton()}
+   ${dailyActionButtons()}
 
 </div>
 
@@ -808,21 +798,41 @@ pageContainer.innerHTML=`
 
 <div class="card">
 
-<div class="card-title">
+    <div class="card-title">
 
-查詢帳務
+        查詢帳務
 
-</div>
+    </div>
 
-<p>
+    <label>
 
-查詢帳務功能開發中
+        營業日期
 
-</p>
+    </label>
 
-<br>
+    <input
+        type="date"
+        id="searchDate">
 
-${backHomeButton()}
+    <button
+        class="btn btn-info"
+        onclick="searchDaily()">
+
+        查詢
+
+    </button>
+
+    <hr>
+
+    <div id="searchResult">
+
+        尚未查詢
+
+    </div>
+
+    <br>
+
+    ${backHomeButton()}
 
 </div>
 
@@ -1599,5 +1609,97 @@ function resetDailyState(){
         }
 
     };
+
+}
+function searchDaily(){
+
+    const businessDate =
+        document.getElementById("searchDate").value;
+
+    if(!businessDate){
+
+        showToast("請選擇日期");
+
+        return;
+
+    }
+
+    showLoading();
+
+    google.script.run
+
+        .withSuccessHandler(function(res){
+
+            hideLoading();
+
+            if(!res.success){
+
+                showToast(res.message);
+
+                return;
+
+            }
+
+            renderSearchResult(res.daily);
+
+        })
+
+        .withFailureHandler(function(err){
+
+            hideLoading();
+
+            showToast(err.message);
+
+        })
+
+        .loadDaily(businessDate);
+
+}
+function renderSearchResult(d){
+
+    document.getElementById("searchResult").innerHTML=`
+
+        <div class="card">
+
+            <b>營業日期：</b>
+            ${d.businessDate}
+
+            <br><br>
+
+            <b>總營業額：</b>
+            ${money(d.summary.sales)}
+
+            <br>
+
+            <b>總單數：</b>
+            ${d.summary.orders}
+
+            <br>
+
+            <b>淨收入：</b>
+            ${money(d.summary.net)}
+
+        </div>
+
+    `;
+
+}
+function dailyActionButtons(){
+
+    return `
+
+<button
+    class="btn btn-success"
+    onclick="previewCloseDaily()">
+
+    關帳
+
+</button>
+
+<br><br>
+
+${backHomeButton()}
+
+`;
 
 }
